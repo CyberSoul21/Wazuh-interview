@@ -68,6 +68,4 @@ int main()
     // Output the result
     std::cout << "Games won: " << wins.load() << std::endl;
     return 0;
-    
-    return 0;
 }
