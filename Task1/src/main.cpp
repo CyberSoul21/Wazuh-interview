@@ -7,7 +7,8 @@ int main()
 {
     monty_hall game;
     
-    game.print();
-    
+    game.shuffleDoors();
+    game.printShuffledDoors();
+
     return 0;
 }
