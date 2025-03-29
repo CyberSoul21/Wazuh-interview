@@ -5,11 +5,13 @@
             "label": "C/C++: g++-11 build active file",
             "command": "/usr/bin/g++-11",
             "args": [
+                "-g",  // Debugging symbols
+                "${workspaceFolder}/Task1/src/main.cpp",  // Path to main.cpp
+                "${workspaceFolder}/Task1/src/monty_hall.cpp", // Path to my_class.cpp
                 "-fdiagnostics-color=always",
-                "-g",
-                "${file}",
-                "-o",
-                "${fileDirname}/${fileBasenameNoExtension}"
+                "-I", "${workspaceFolder}/Task1/include",  // Path to include/ for headers
+                "-o", "${workspaceFolder}/Task1/bin/my_program"  // Output the executable in bin/
+                //"${fileDirname}/${fileBasenameNoExtension}"
             ],
             "options": {
                 "cwd": "${fileDirname}"

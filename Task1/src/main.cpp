@@ -1,9 +1,13 @@
-#include <iostream>
+//#include <iostream>
+#include "../include/monty_hall.h"
 
-using namespace std;
+//using namespace std;
 
 int main()
 {
-    cout << "Hello World!" << endl;
+    monty_hall game;
+    
+    game.print();
+    
     return 0;
 }
