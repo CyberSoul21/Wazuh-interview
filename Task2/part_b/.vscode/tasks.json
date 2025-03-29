@@ -3,16 +3,12 @@
         {
             "type": "cppbuild",
             "label": "C/C++: g++-11 build active file",
-            "command": "/usr/bin/g++-11",
+            "command": "/usr/bin/gcc",
             "args": [
                 "-g",  // Debugging symbols
-                "${workspaceFolder}/Task1/src/main.cpp",  // Path to main.cpp
-                "${workspaceFolder}/Task1/src/monty_hall.cpp", // Path to my_class.cpp
+                "${workspaceFolder}/my_strlen.c",  // Path to main.c
                 "-fdiagnostics-color=always",
-                "-I", "${workspaceFolder}/Task1/include",  // Path to include/ for headers
-                "-o", "${workspaceFolder}/Task1/bin/my_program",  // Output the executable in bin/
-                "-pthread"  // Link the pthread library for multi-threading
-                //"${fileDirname}/${fileBasenameNoExtension}"
+                "-o", "${workspaceFolder}/bin/my_strlen"  // Output the executable in bin/
             ],
             "options": {
                 "cwd": "${fileDirname}"
