@@ -5,6 +5,8 @@
 #include <vector>
 #include <random>
 #include <algorithm>
+// import mutex from C++ standard library
+#include <mutex>
 
 
 using namespace std;
@@ -15,6 +17,8 @@ class monty_hall
         //int m_year{};
         std::vector<string> doors = {"Car","Goat","Goat"};
         int playerSelection = 0;
+        // Mutex to protect the doors vector
+        std::mutex doorsMutex;
 
     public:
         //monty_hall();

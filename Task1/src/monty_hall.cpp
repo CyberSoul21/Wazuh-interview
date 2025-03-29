@@ -2,6 +2,8 @@
 
 void monty_hall::shuffleDoors()
 {
+    // Lock the mutex to ensure thread-safe access to doors
+    std::lock_guard<std::mutex> lock(doorsMutex);
     /*
     // Use Mersenne Twister and random_device to shuffle
     std::random_device rd;
