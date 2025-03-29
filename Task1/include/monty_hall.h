@@ -25,6 +25,8 @@ class monty_hall
 
         int getPlayerSelection();
 
+        bool result();
+
         void printShuffledDoors() const;
 
 };

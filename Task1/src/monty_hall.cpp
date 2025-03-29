@@ -65,3 +65,15 @@ int monty_hall::getPlayerSelection()
 {
     return playerSelection;
 }
+
+bool monty_hall::result()
+{
+    if(doors[playerSelection] == "Car")
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
