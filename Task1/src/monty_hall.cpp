@@ -22,7 +22,8 @@ void monty_hall::shuffleDoors()
 
 void monty_hall::hostOpenDoor()
 {
-    std::vector<int> listDoors;
+    std::lock_guard<std::mutex> lock(listDoorsMutex); // Lock the mutex
+    
     for(int i=0; i<doors.size(); i++)
     {
         if((playerSelection != i)&&(doors[i] != "Car"))
@@ -36,7 +37,7 @@ void monty_hall::hostOpenDoor()
     }
     else
     {
-        doorOpened = selectRandomNumber(listDoors);    
+        doorOpened = listDoors[selectRandomNumber()];    
     }
 }
 
@@ -102,14 +103,16 @@ int monty_hall::generateRandomNumer()
     return randomNumber;
 }
 
-int monty_hall::selectRandomNumber(std::vector<int> listDoors) {
+//int monty_hall::selectRandomNumber(std::vector<int> listDoors) {
+int monty_hall::selectRandomNumber() {
+  
     // Create a random number generator with a random device as the seed
     std::random_device rd;
     std::mt19937 gen(rd());  // Mersenne Twister random number generator
     std::uniform_int_distribution<> dist(0, 1);  // Uniform distribution between 0 and 1
-
-    // Randomly select either position 1 or position 2 based on the generated random index
-    return dist(gen) == 0 ? listDoors[0] : listDoors[1];
+    
+    //return dist(gen) == 0 ? listDoors[0] : listDoors[1];
+    return dist(gen);
 }
 
 

@@ -18,10 +18,12 @@ class monty_hall
     private:
 
         std::vector<string> doors;
+        std::vector<int> listDoors;
         int playerSelection;
         int doorOpened;
         // Mutex to protect the doors vector
         std::mutex doorsMutex;
+        std::mutex listDoorsMutex;
 
     public:
     
@@ -36,7 +38,7 @@ class monty_hall
         // Destructor 
         ~monty_hall() {
             // If any dynamic memory or resources were allocated, release them here
-            std::cout << "Destructor called, cleaning up resources" << std::endl;
+            //std::cout << "Destructor called, cleaning up resources" << std::endl;
         };
 
         //Reset
@@ -59,7 +61,8 @@ class monty_hall
 
         int generateRandomNumer();
         
-        int selectRandomNumber(std::vector<int> listDoors);
+        //int selectRandomNumber(std::vector<int> listDoors);
+        int selectRandomNumber();
 
         void hostOpenDoor();
 

@@ -10,7 +10,7 @@
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/bin/monty_hall",
-            "args": ["both","1000"],
+            "args": ["switch","1000000"],
             "stopAtEntry": false,
             "cwd": "${fileDirname}",
             "environment": [],
