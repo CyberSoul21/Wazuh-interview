@@ -9,7 +9,7 @@
             "name": "(gdb) Launch",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceFolder}/Task1/bin/my_program",
+            "program": "${workspaceFolder}/bin/my_strlen",
             "args": [],
             "stopAtEntry": false,
             "cwd": "${fileDirname}",
