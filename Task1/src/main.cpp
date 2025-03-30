@@ -23,22 +23,17 @@ int main()
 
 
 
-    monty_hall game;
+    monty_hall game_stay;
+    monty_hall game_switch;    
     
-    
-    int wins1=0;
-    for(int i = 0; i < 100000; i++)
-    {
-        game.shuffleDoors();
-        //game.printShuffledDoors();
-        game.setPlayerSelection();
-        if(game.result() == true)
-        {
-            wins1++;
-        }
-    }
-    std::cout <<"Games wons: "<<wins1<<endl;
-    
+    std::atomic<int> wins(0); // Atomic variable for thread-safe updates
+
+    game_stay.stayStrategySimulation_chunk(100000,std::ref(wins));
+    std::cout <<"Games wons with stay strategy: "<<wins.load()<<endl;
+    wins.store(0);
+    game_switch.switchStrategySimulation_chunk(100000,std::ref(wins));
+    std::cout <<"Games wons with switch strategy: "<<wins.load()<<endl;
+
 
     /*
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////
