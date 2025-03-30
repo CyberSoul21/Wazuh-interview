@@ -25,18 +25,26 @@ class monty_hall
 
     public:
     
-        //Constructor
-        monty_hall()
-        {
-            std::vector<string> doors = {"","",""};
-            int playerSelection = 0;
-            int doorOpened = 0;
-        }
+    // Constructor
+    monty_hall() {
+        // Initialize member variables with default values
+        doors = {"Car", "Goat", "Goat"};  // Initialize the doors
+        playerSelection = 0;              // Set the initial player selection to 0
+        doorOpened = 0;                   // Set the initial door opened to 0
+    }
 
         // Destructor 
         ~monty_hall() {
             // If any dynamic memory or resources were allocated, release them here
             std::cout << "Destructor called, cleaning up resources" << std::endl;
+        };
+
+        //Reset
+        inline void reset()
+        {
+            std::vector<string> doors = {"Car","Goat","Goat"};
+            int playerSelection = 0;
+            int doorOpened = 0;
         }
 
         void shuffleDoors();
