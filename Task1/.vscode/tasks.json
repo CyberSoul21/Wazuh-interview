@@ -10,7 +10,7 @@
                 "${workspaceFolder}/src/monty_hall.cpp", // Path to my_class.cpp
                 "-fdiagnostics-color=always",
                 "-I", "${workspaceFolder}/include",  // Path to include/ for headers
-                "-o", "${workspaceFolder}/bin/my_program",  // Output the executable in bin/
+                "-o", "${workspaceFolder}/bin/monty_hall",  // Output the executable in bin/
                 "-pthread"  // Link the pthread library for multi-threading
                 //"${fileDirname}/${fileBasenameNoExtension}"
             ],

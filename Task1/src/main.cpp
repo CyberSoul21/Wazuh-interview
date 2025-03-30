@@ -29,7 +29,6 @@ int main(int argc, char* argv[])
 
 
     const int num_threads = std::thread::hardware_concurrency(); // Get number of hardware threads available
-    const int simulations_per_thread = total_simulations / num_threads;
 
     // Measure time for non-parallel program
     //auto start = std::chrono::high_resolution_clock::now();
@@ -85,7 +84,7 @@ int main(int argc, char* argv[])
         return 1;  // Exit the program with an error code 
     }
 
-
+    const int simulations_per_thread = total_simulations / num_threads;
 
 
     if(total_simulations < 1000000)
@@ -93,23 +92,23 @@ int main(int argc, char* argv[])
         if(stay)
         {
             game_stay.stayStrategySimulation_chunk(total_simulations,std::ref(wins));
-            std::cout <<"Games wons with stay strategy: "<<wins.load()<<endl;
+            std::cout <<"Games won with stay strategy: "<<wins.load()<<endl;
             wins.store(0);
         }
         else if(change)
         {
             game_switch.switchStrategySimulation_chunk(total_simulations,std::ref(wins));
-            std::cout <<"Games wons with switch strategy: "<<wins.load()<<endl;
+            std::cout <<"Games won with switch strategy: "<<wins.load()<<endl;
             wins.store(0);
         }
         else if(both || argc == 1)
         {
             game_stay.stayStrategySimulation_chunk(total_simulations,std::ref(wins));
-            std::cout <<"Games wons with stay strategy: "<<wins.load()<<endl;
+            std::cout <<"Games won with stay strategy: "<<wins.load()<<endl;
             wins.store(0);
 
             game_switch.switchStrategySimulation_chunk(total_simulations,std::ref(wins));
-            std::cout <<"Games wons with switch strategy: "<<wins.load()<<endl;
+            std::cout <<"Games won with switch strategy: "<<wins.load()<<endl;
             wins.store(0);
         }
 
@@ -118,15 +117,69 @@ int main(int argc, char* argv[])
     {
         if(stay)
         {
+            // Create threads to run the simulation in parallel
+            for (int i = 0; i < num_threads; i++)
+            {
+                threads.push_back(std::thread(std::mem_fn(&monty_hall::stayStrategySimulation_chunk), &game_stay, simulations_per_thread, std::ref(wins)));
+            }
 
+            // Wait for all threads to finish
+            for (auto& t : threads)
+            {
+                t.join();
+            }
+            // Output the result
+            std::cout << "Games won with stay strategy: " << wins.load() << std::endl;
+            wins.store(0);
         }
         else if(change)
         {
-            
+            // Create threads to run the simulation in parallel
+            for (int i = 0; i < num_threads; i++)
+            {
+                threads.push_back(std::thread(std::mem_fn(&monty_hall::switchStrategySimulation_chunk), &game_switch, simulations_per_thread, std::ref(wins)));
+            }
+
+            // Wait for all threads to finish
+            for (auto& t : threads)
+            {
+                t.join();
+            }
+            // Output the result
+            std::cout << "Games won with switch strategy: " << wins.load() << std::endl;
+            wins.store(0); 
         }
         else if(both || argc == 1)
         {
+            // Create threads to run the simulation in parallel
+            for (int i = 0; i < num_threads; i++)
+            {
+                threads.push_back(std::thread(std::mem_fn(&monty_hall::stayStrategySimulation_chunk), &game_stay, simulations_per_thread, std::ref(wins)));
+            }
 
+            // Wait for all threads to finish
+            for (auto& t : threads)
+            {
+                t.join();
+            }
+            // Output the result
+            std::cout << "Games won with stay strategy: " << wins.load() << std::endl;
+            wins.store(0);
+
+            // Create threads to run the simulation in parallel
+            for (int i = 0; i < num_threads; i++)
+            {
+                threads.push_back(std::thread(std::mem_fn(&monty_hall::switchStrategySimulation_chunk), &game_switch, simulations_per_thread, std::ref(wins)));
+            }
+
+            // Wait for all threads to finish
+            for (auto& t : threads)
+            {
+                t.join();
+            }
+            // Output the result
+            std::cout << "Games won with switch strategy: " << wins.load() << std::endl; 
+            wins.store(0);
         }
 
     }
@@ -136,43 +189,10 @@ int main(int argc, char* argv[])
         return 1;  // Exit the program with an error code
     }
 
-
-
     //auto end = std::chrono::high_resolution_clock::now();
     //std::chrono::duration<double> duration_stay = end - start;
     // Output the time taken for each strategy
     //std::cout << "Time taken running sequentially: " << duration_stay.count() << " seconds" << std::endl;
-
-
-    //game_stay.reset();
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    
-
-
-    
-    // Measure time for non-parallel program
-    //start = std::chrono::high_resolution_clock::now();
-
-    // Create threads to run the simulation in parallel
-    for (int i = 0; i < num_threads; i++)
-    {
-        threads.push_back(std::thread(std::mem_fn(&monty_hall::stayStrategySimulation_chunk), &game_stay, simulations_per_thread, std::ref(wins)));
-    }
-
-    // Wait for all threads to finish
-    for (auto& t : threads)
-    {
-        t.join();
-    }
-
-    // Output the result
-    std::cout << "Games won: " << wins.load() << std::endl;
-
-
-
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    
-
-
     return 0;
 }
