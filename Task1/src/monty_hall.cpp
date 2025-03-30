@@ -23,7 +23,7 @@ void monty_hall::shuffleDoors()
 
     // Generate and print a random number
     int randomNumber = dis(gen);
-    std::cout << "Random number: " << randomNumber << std::endl;
+    //std::cout << "Random number: " << randomNumber << std::endl;
 
     for(int i=0; i<doors.size(); i++)
     {
@@ -78,4 +78,21 @@ bool monty_hall::result()
     {
         return false;
     }
+}
+
+
+// Function to run a chunk of simulations
+void monty_hall::run_simulation_chunk(int num_simulations, std::atomic<int>& wins)
+{
+    int local_wins = 0;
+    for (int i = 0; i < num_simulations; i++)
+    {
+        shuffleDoors();
+        setPlayerSelection();
+        if (result() == true)
+        {
+            local_wins++;
+        }
+    }
+    wins += local_wins;  // Atomically update the shared counter
 }

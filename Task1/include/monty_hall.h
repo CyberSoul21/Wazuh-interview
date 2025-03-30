@@ -7,7 +7,8 @@
 #include <algorithm>
 // import mutex from C++ standard library
 #include <mutex>
-
+#include <thread>
+#include <atomic>
 
 using namespace std;
 
@@ -32,6 +33,8 @@ class monty_hall
         bool result();
 
         void printShuffledDoors() const;
+
+        void run_simulation_chunk(int num_simulations, std::atomic<int>& wins);
 
 };
 
