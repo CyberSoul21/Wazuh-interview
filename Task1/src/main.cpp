@@ -5,23 +5,7 @@
 
 //using namespace std;
 
-//int wins = 0;
 
-// Function to run a chunk of simulations
-void run_simulation_chunk(int num_simulations, monty_hall& game, std::atomic<int>& wins)
-{
-    int local_wins = 0;
-    for (int i = 0; i < num_simulations; i++)
-    {
-        game.shuffleDoors();
-        game.setPlayerSelection();
-        if (game.result() == true)
-        {
-            local_wins++;
-        }
-    }
-    wins += local_wins;  // Atomically update the shared counter
-}
 
 int main()
 {
@@ -55,8 +39,6 @@ int main()
     }
     std::cout <<"Games wons: "<<wins1<<endl;
     */
-
-
     const int total_simulations = 1000000;
     const int num_threads = std::thread::hardware_concurrency(); // Get number of hardware threads available
     const int simulations_per_thread = total_simulations / num_threads;
@@ -64,18 +46,9 @@ int main()
     std::vector<std::thread> threads;
     std::atomic<int> wins(0); // Atomic variable for thread-safe updates
     
-    // Pointer to member function
-    //void (monty_hall::*)(int num_simulations, std::atomic<int> &wins)
-    //void (monty_hall::*funcPtr)(int, std::atomic<int>&) = &monty_hall::run_simulation_chunk;
-    //void (monty_hall::*funcPtr)() = &monty_hall::run_simulation_chunk;
-
-
     // Create threads to run the simulation in parallel
     for (int i = 0; i < num_threads; i++)
     {
-        //threads.push_back(std::thread(run_simulation_chunk, simulations_per_thread, std::ref(game), std::ref(wins)));
-        //threads.push_back(std::thread(funcPtr, simulations_per_thread, std::ref(wins)));
-        // Create a thread, using std::mem_fn to wrap the member function
         threads.push_back(std::thread(std::mem_fn(&monty_hall::run_simulation_chunk), &game, simulations_per_thread, std::ref(wins)));
     }
 
