@@ -36,7 +36,7 @@ class monty_hall
 
         int generateRandomNumer();
 
-        void run_simulation_chunk(int num_simulations, std::atomic<int>& wins);
+        void stayStrategySimulation_chunk(int num_simulations, std::atomic<int>& wins);
 
 };
 

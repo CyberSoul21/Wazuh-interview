@@ -49,7 +49,7 @@ int main()
     // Create threads to run the simulation in parallel
     for (int i = 0; i < num_threads; i++)
     {
-        threads.push_back(std::thread(std::mem_fn(&monty_hall::run_simulation_chunk), &game, simulations_per_thread, std::ref(wins)));
+        threads.push_back(std::thread(std::mem_fn(&monty_hall::stayStrategySimulation_chunk), &game, simulations_per_thread, std::ref(wins)));
     }
 
     // Wait for all threads to finish

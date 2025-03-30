@@ -71,7 +71,7 @@ int monty_hall::generateRandomNumer()
 }
 
 // Function to run a chunk of simulations
-void monty_hall::run_simulation_chunk(int num_simulations, std::atomic<int>& wins)
+void monty_hall::stayStrategySimulation_chunk(int num_simulations, std::atomic<int>& wins)
 {
     int local_wins = 0;
     for (int i = 0; i < num_simulations; i++)
