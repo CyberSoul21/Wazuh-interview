@@ -19,6 +19,19 @@ void monty_hall::shuffleDoors()
     }
 }
 
+void monty_hall::hostOpenDoor()
+{
+    std::vector<int> listDoors;
+    for(int i=0; i<doors.size(); i++)
+    {
+        if((playerSelection != i)&&(doors[i] != "Car"))
+        {
+            listDoors.push_back(i);
+        }
+    }
+    doorOpened = selectRandomNumber(listDoors);    
+}
+
 void monty_hall::printShuffledDoors() const
 {
     int counter = 1;
@@ -68,6 +81,36 @@ int monty_hall::generateRandomNumer()
     //std::cout << "Random number: " << randomNumber << std::endl;
 
     return randomNumber;
+}
+
+int monty_hall::selectRandomNumber(std::vector<int> listDoors) {
+    // Create a random number generator with a random device as the seed
+    std::random_device rd;
+    std::mt19937 gen(rd());  // Mersenne Twister random number generator
+    std::uniform_int_distribution<> dist(0, 1);  // Uniform distribution between 0 and 1
+
+    // Randomly select either position 1 or position 2 based on the generated random index
+    return dist(gen) == 0 ? listDoors[0] : listDoors[1];
+}
+
+
+// Function to run a chunk of simulations
+void monty_hall::switchStrategySimulation_chunk(int num_simulations, std::atomic<int>& wins)
+{
+    int local_wins = 0;
+    for (int i = 0; i < num_simulations; i++)
+    {
+        //one game
+        shuffleDoors();
+        setPlayerSelection();
+        hostOpenDoor();
+        playerSwitchDoor();
+        if (result() == true)
+        {
+            local_wins++;
+        }
+    }
+    wins += local_wins;  // Atomically update the shared counter
 }
 
 // Function to run a chunk of simulations
