@@ -29,7 +29,14 @@ void monty_hall::hostOpenDoor()
             listDoors.push_back(i);
         }
     }
-    doorOpened = selectRandomNumber(listDoors);    
+    if(listDoors.size() == 1)
+    {
+        doorOpened = listDoors[0];    
+    }
+    else
+    {
+        doorOpened = selectRandomNumber(listDoors);    
+    }
 }
 
 void monty_hall::playerSwitchDoor()
