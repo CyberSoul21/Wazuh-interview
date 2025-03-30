@@ -37,14 +37,7 @@ int main(int argc, char* argv[])
     //Default simulation without arguments
     if(argc == 1)
     {
-        total_simulations = 100000;
-        game_stay.stayStrategySimulation_chunk(total_simulations,std::ref(wins));
-        std::cout <<"Games wons with stay strategy: "<<wins.load()<<endl;
-        wins.store(0);
-
-        game_switch.switchStrategySimulation_chunk(total_simulations,std::ref(wins));
-        std::cout <<"Games wons with switch strategy: "<<wins.load()<<endl;
-        wins.store(0);
+        total_simulations = 100000;        
     }
     else if(argc == 3)
     {
@@ -85,6 +78,62 @@ int main(int argc, char* argv[])
             return 1; 
         } 
 
+    }
+    else
+    {
+        std::cout << "Too many arguments! Expected only two arguments (a string and an integer)." << std::endl;
+        return 1;  // Exit the program with an error code 
+    }
+
+
+
+
+    if(total_simulations < 1000000)
+    {
+        if(stay)
+        {
+            game_stay.stayStrategySimulation_chunk(total_simulations,std::ref(wins));
+            std::cout <<"Games wons with stay strategy: "<<wins.load()<<endl;
+            wins.store(0);
+        }
+        else if(change)
+        {
+            game_switch.switchStrategySimulation_chunk(total_simulations,std::ref(wins));
+            std::cout <<"Games wons with switch strategy: "<<wins.load()<<endl;
+            wins.store(0);
+        }
+        else if(both || argc == 1)
+        {
+            game_stay.stayStrategySimulation_chunk(total_simulations,std::ref(wins));
+            std::cout <<"Games wons with stay strategy: "<<wins.load()<<endl;
+            wins.store(0);
+
+            game_switch.switchStrategySimulation_chunk(total_simulations,std::ref(wins));
+            std::cout <<"Games wons with switch strategy: "<<wins.load()<<endl;
+            wins.store(0);
+        }
+
+    }
+    else if(total_simulations >= 1000000 && total_simulations <= 10000000)
+    {
+        if(stay)
+        {
+
+        }
+        else if(change)
+        {
+            
+        }
+        else if(both || argc == 1)
+        {
+
+        }
+
+    }
+    else if(total_simulations > 10000000)
+    {
+        std::cout << "Warning: You requested too many simulations..." << std::endl;
+        return 1;  // Exit the program with an error code
     }
 
 
