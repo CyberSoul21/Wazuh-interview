@@ -34,6 +34,8 @@ class monty_hall
 
         void printShuffledDoors() const;
 
+        int generateRandomNumer();
+
         void run_simulation_chunk(int num_simulations, std::atomic<int>& wins);
 
 };
