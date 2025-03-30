@@ -42,6 +42,8 @@ class monty_hall
 
         void hostOpenDoor();
 
+        void playerSwitchDoor();
+
         void switchStrategySimulation_chunk(int num_simulations, std::atomic<int>& wins);
 
         void stayStrategySimulation_chunk(int num_simulations, std::atomic<int>& wins);

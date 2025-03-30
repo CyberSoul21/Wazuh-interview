@@ -32,6 +32,17 @@ void monty_hall::hostOpenDoor()
     doorOpened = selectRandomNumber(listDoors);    
 }
 
+void monty_hall::playerSwitchDoor()
+{
+    for(int i=0; i<doors.size(); i++)
+    {
+        if((playerSelection != i)&&(doorOpened != i))
+        {
+            playerSelection = i;
+        }
+    }    
+}
+
 void monty_hall::printShuffledDoors() const
 {
     int counter = 1;
