@@ -28,14 +28,20 @@ int main()
     
     std::atomic<int> wins(0); // Atomic variable for thread-safe updates
 
-    game_stay.stayStrategySimulation_chunk(100000,std::ref(wins));
+    // Measure time for non-parallel program
+    auto start = std::chrono::high_resolution_clock::now();
+    game_stay.stayStrategySimulation_chunk(1000000,std::ref(wins));
     std::cout <<"Games wons with stay strategy: "<<wins.load()<<endl;
     wins.store(0);
-    game_switch.switchStrategySimulation_chunk(100000,std::ref(wins));
+    game_switch.switchStrategySimulation_chunk(1000000,std::ref(wins));
     std::cout <<"Games wons with switch strategy: "<<wins.load()<<endl;
+    auto end = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double> duration_stay = end - start;
+        // Output the time taken for each strategy
+    std::cout << "Time taken : " << duration_stay.count() << " seconds" << std::endl;
 
 
-    /*
+  
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////
     const int total_simulations = 100000;
     const int num_threads = std::thread::hardware_concurrency(); // Get number of hardware threads available
@@ -59,7 +65,6 @@ int main()
     // Output the result
     std::cout << "Games won: " << wins.load() << std::endl;
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    */
 
 
     return 0;

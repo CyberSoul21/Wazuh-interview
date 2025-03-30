@@ -1,5 +1,6 @@
 #include "../include/monty_hall.h"
 
+
 void monty_hall::shuffleDoors()
 {
     // Lock the mutex to ensure thread-safe access to doors

@@ -16,15 +16,28 @@ using namespace std;
 class monty_hall
 {
     private:
-        //int m_year{};
-        std::vector<string> doors = {"Car","Goat","Goat"};
-        int playerSelection = 0;
-        int doorOpened = 0;
+
+        std::vector<string> doors;
+        int playerSelection;
+        int doorOpened;
         // Mutex to protect the doors vector
         std::mutex doorsMutex;
 
     public:
-        //monty_hall();
+    
+        //Constructor
+        monty_hall()
+        {
+            std::vector<string> doors = {"","",""};
+            int playerSelection = 0;
+            int doorOpened = 0;
+        }
+
+        // Destructor 
+        ~monty_hall() {
+            // If any dynamic memory or resources were allocated, release them here
+            std::cout << "Destructor called, cleaning up resources" << std::endl;
+        }
 
         void shuffleDoors();
 
