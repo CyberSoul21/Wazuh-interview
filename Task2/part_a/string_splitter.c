@@ -179,18 +179,19 @@ void matrixfree(matrix_t matrix) {
  
     // Do nothing if the matrix is null
  
-    free(matrix);//wilson
+    
     //TODO: This is the error 1
+    //      free(matrix);//wilson
     //      Error two is leave space as input
     //      Create a few unit tests
-    //
-    /*
+    //      
+    
     if (matrix) {
         while (*matrix) {
             free(*(matrix++));
         }
  
-        free(matrix);
+        //free(matrix);
     }
-    */
+    
 }
