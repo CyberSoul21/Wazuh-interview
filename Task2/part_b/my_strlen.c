@@ -14,6 +14,14 @@
 #define zero(v) ((v - 0x0101010101010101) & ~v & 0x8080808080808080)
  
 size_t my_strlen(const char * str) {
+
+
+    while ((uintptr_t)str % 8 != 0) {
+        if (*str == '\0') return str - str;  // Stop if a null byte is found
+        str++;
+    }
+
+
     uint64_t ans = zero(*(uint64_t *)str);
     size_t z = 0;
 
