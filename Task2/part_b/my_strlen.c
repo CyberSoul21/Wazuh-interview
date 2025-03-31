@@ -23,6 +23,7 @@ size_t my_strlen(const char * str) {
     /* ans = 0 means that the argument does not contain any zero byte */
     while (ans == 0) {
         /* Shift the string and find any zero in the next chunk */
+        if (*str == '\0') return z;  // Null-terminated string
         str += 8;
         z += 8;
         ans = zero(*(uint64_t *)str);
