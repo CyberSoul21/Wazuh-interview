@@ -6,9 +6,10 @@
             "command": "/usr/bin/gcc",
             "args": [
                 "-g",  // Debugging symbols
+                "-Wall", "-Wextra",
                 "${workspaceFolder}/string_splitter.c",  // Path to main.c
                 "-fdiagnostics-color=always",
-                "-o", "${workspaceFolder}/bin/string_splitter"  // Output the executable in bin/
+                "-o", "${workspaceFolder}/string_splitter"  // Output the executable in bin/
             ],
             "options": {
                 "cwd": "${fileDirname}"

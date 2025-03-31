@@ -186,12 +186,19 @@ void matrixfree(matrix_t matrix) {
     //      Create a few unit tests
     //      
     
-    if (matrix) {
-        while (*matrix) {
-            free(*(matrix++));
-        }
- 
-        //free(matrix);
+    if (matrix) 
+    {
+        matrix_t temp = matrix;
+        while (*temp) 
+        {
+            free(*(matrix));
+            temp++;
+            if(temp == NULL)
+            {
+                matrix++;
+            }
+        } 
+        free(matrix);
     }
     
 }
