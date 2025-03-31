@@ -8,6 +8,7 @@
  
 #include <stdlib.h>
 #include <stdint.h>
+#define MAX_LEN 100
  
 /* https://jameshfisher.com/2017/01/24/bitwise-check-for-zero-byte */
 #define zero(v) ((v - 0x0101010101010101) & ~v & 0x8080808080808080)
@@ -39,9 +40,18 @@ size_t my_strlen(const char * str) {
 #define strlen my_strlen
  
 int main(int argc, char ** argv) {
+
+    
     if (argc > 1) {
         printf("%lu\n", strlen(argv[1]));
     } else {
         fprintf(stderr, "Syntax: %s <string>\n", argv[0]);
     }
+
+    //char *str = malloc(8);
+    //memcpy(str, "ABCDEFG", 6); // no null terminator
+    //printf("%lu\n", strlen(str));
+
+    // Create a buffer (not null-terminated)
+    //char buffer[] = {'H', 'e', 'l', 'l', 'o', ' ', 'w', 'o', 'r', 'l', 'd','\0'}; // no '\0' at the end
 }
