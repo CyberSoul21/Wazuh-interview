@@ -1,5 +1,6 @@
 #include "../include/monty_hall.h"
 #include <thread>
+#include <iomanip>  // Para usar setprecision
 
     /**
      * @brief 
@@ -22,6 +23,7 @@ int main(int argc, char* argv[])
     bool stay = false;
     bool change = false;
     bool both = false;
+    double percent = 0.0;
     monty_hall game_stay;
     monty_hall game_switch; 
     std::atomic<int> wins(0); // Atomic variable for thread-safe updates
@@ -93,22 +95,38 @@ int main(int argc, char* argv[])
         {
             game_stay.stayStrategySimulation_chunk(total_simulations,std::ref(wins));
             std::cout <<"Games won with stay strategy: "<<wins.load()<<endl;
+            // compute
+            percent = (static_cast<double>(wins.load()) / total_simulations) * 100;
+            // Imprimir el porcentaje con dos decimales
+            std::cout << "Probability to win with stay strategy: " << std::fixed << std::setprecision(2) << percent << "%" << std::endl;
             wins.store(0);
         }
         else if(change)
         {
             game_switch.switchStrategySimulation_chunk(total_simulations,std::ref(wins));
             std::cout <<"Games won with switch strategy: "<<wins.load()<<endl;
+            // compute
+            percent = (static_cast<double>(wins.load()) / total_simulations) * 100;
+            // Imprimir el porcentaje con dos decimales
+            std::cout << "Probability to win with switch strategy: " << std::fixed << std::setprecision(2) << percent << "%" << std::endl;
             wins.store(0);
         }
         else if(both || argc == 1)
         {
             game_stay.stayStrategySimulation_chunk(total_simulations,std::ref(wins));
             std::cout <<"Games won with stay strategy: "<<wins.load()<<endl;
+            // compute
+            percent = (static_cast<double>(wins.load()) / total_simulations) * 100;
+            // Imprimir el porcentaje con dos decimales
+            std::cout << "Probability to win with stay strategy: " << std::fixed << std::setprecision(2) << percent << "%" << std::endl;
             wins.store(0);
 
             game_switch.switchStrategySimulation_chunk(total_simulations,std::ref(wins));
             std::cout <<"Games won with switch strategy: "<<wins.load()<<endl;
+            // compute
+            percent = (static_cast<double>(wins.load()) / total_simulations) * 100;
+            // Imprimir el porcentaje con dos decimales
+            std::cout << "Probability to win with switch strategy: " << std::fixed << std::setprecision(2) << percent << "%" << std::endl;
             wins.store(0);
         }
 
@@ -130,6 +148,10 @@ int main(int argc, char* argv[])
             }
             // Output the result
             std::cout << "Games won with stay strategy: " << wins.load() << std::endl;
+            // compute
+            percent = (static_cast<double>(wins.load()) / total_simulations) * 100;
+            // Imprimir el porcentaje con dos decimales
+            std::cout << "Probability to win with stay strategy: " << std::fixed << std::setprecision(2) << percent << "%" << std::endl;
             wins.store(0);
         }
         else if(change)
@@ -147,6 +169,10 @@ int main(int argc, char* argv[])
             }
             // Output the result
             std::cout << "Games won with switch strategy: " << wins.load() << std::endl;
+            // compute
+            percent = (static_cast<double>(wins.load()) / total_simulations) * 100;
+            // Imprimir el porcentaje con dos decimales
+            std::cout << "Probability to win with switch strategy: " << std::fixed << std::setprecision(2) << percent << "%" << std::endl;
             wins.store(0); 
         }
         else if(both || argc == 1)
@@ -164,6 +190,10 @@ int main(int argc, char* argv[])
             }
             // Output the result
             std::cout << "Games won with stay strategy: " << wins.load() << std::endl;
+            // compute
+            percent = (static_cast<double>(wins.load()) / total_simulations) * 100;
+            // Imprimir el porcentaje con dos decimales
+            std::cout << "Probability to win with stay strategy: " << std::fixed << std::setprecision(2) << percent << "%" << std::endl;
             wins.store(0);
             threads.clear();
             // Create threads to run the simulation in parallel
@@ -178,7 +208,11 @@ int main(int argc, char* argv[])
                 t.join();
             }
             // Output the result
-            std::cout << "Games won with switch strategy: " << wins.load() << std::endl; 
+            std::cout << "Games won with switch strategy: " << wins.load() << std::endl;
+            // compute
+            percent = (static_cast<double>(wins.load()) / total_simulations) * 100;
+            // Imprimir el porcentaje con dos decimales
+            std::cout << "Probability to win with switch strategy: " << std::fixed << std::setprecision(2) << percent << "%" << std::endl; 
             wins.store(0);
         }
 
