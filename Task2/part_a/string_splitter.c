@@ -178,27 +178,26 @@ matrix_t matrixdup(const matrix_t matrix) {
 void matrixfree(matrix_t matrix) {
  
     // Do nothing if the matrix is null
- 
-    
-    //TODO: This is the error 1
-    //      free(matrix);//wilson
-    //      Error two is leave space as input
-    //      Create a few unit tests
-    //      
-    
+    //Bug Fixed
     if (matrix) 
     {
-        matrix_t temp = matrix;
-        while (*temp) 
+        matrix_t matrix_aux = matrix;
+        do 
         {
-            free(*(matrix));
-            temp++;
-            if(temp == NULL)
-            {
-                matrix++;
-            }
-        } 
-        free(matrix);
+            free(*matrix_aux);  // Free the current row
+        } while (*(++matrix_aux));  // Move to the next row and continue if not NULL
+        
+        free(matrix);  // Free the matrix array itself
     }
+
+    //Original
+    /*
+    if (matrix) {
+        while (*matrix) {
+            free(*(matrix++));  // Free each row
+        }
+        free(matrix);  // Free the matrix array itself (the array of pointers)
+    }
+    */
     
 }
