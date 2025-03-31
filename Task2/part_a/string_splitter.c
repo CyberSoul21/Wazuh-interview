@@ -73,19 +73,28 @@ int main(int argc, char ** argv) {
  
     // Copy the matrix and delete the original
  
-    copy = matrixdup(parts);
-    matrixfree(parts);
+    if(*parts != NULL)
+    {
+        copy = matrixdup(parts);
+        matrixfree(parts);
+
+        // Print the matrix
  
-    // Print the matrix
+        for (i = 0; copy[i]; i++) {
+            printf("%s\n", copy[i]);
+        }
  
-    for (i = 0; copy[i]; i++) {
-        printf("%s\n", copy[i]);
+        // Delete the copy and exit
+    
+        matrixfree(copy);
+        return EXIT_SUCCESS;
+
     }
- 
-    // Delete the copy and exit
- 
-    matrixfree(copy);
-    return EXIT_SUCCESS;
+    else
+    {
+        fprintf(stderr, "ERROR: No string given. Only space is not allowed \n");
+        return EXIT_FAILURE;
+    }
 }
  
 // -----------------------------------------------------------------------------
@@ -178,19 +187,26 @@ matrix_t matrixdup(const matrix_t matrix) {
 void matrixfree(matrix_t matrix) {
  
     // Do nothing if the matrix is null
- 
-    free(matrix);//wilson
-    //TODO: This is the error 1
-    //      Error two is leave space as input
-    //      Create a few unit tests
-    //
+    //Bug Fixed
+    if (matrix) 
+    {
+        matrix_t matrix_aux = matrix;
+        do 
+        {
+            free(*matrix_aux);  // Free the current row
+        } while (*(++matrix_aux));  // Move to the next row and continue if not NULL
+        
+        free(matrix);  // Free the matrix array itself
+    }
+
+    //Original
     /*
     if (matrix) {
         while (*matrix) {
-            free(*(matrix++));
+            free(*(matrix++));  // Free each row
         }
- 
-        free(matrix);
+        free(matrix);  // Free the matrix array itself (the array of pointers)
     }
     */
+    
 }
