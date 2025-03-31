@@ -15,7 +15,6 @@
  
 size_t my_strlen(const char * str) {
 
-
     while ((uintptr_t)str % 8 != 0) {
         if (*str == '\0') return str - str;  // Stop if a null byte is found
         str++;
@@ -33,14 +32,12 @@ size_t my_strlen(const char * str) {
         str += 8;
         z += 8;
         ans = zero(*(uint64_t *)str);
-    }
- 
+    } 
     /* Find the first non-null byte, starting by the least significant one */
     while ((ans & 0xFF) == 0) {
         ans >>= 8;
         ++z;
-    }
- 
+    } 
     return z;
 }
  
