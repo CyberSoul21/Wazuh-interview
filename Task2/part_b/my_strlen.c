@@ -16,6 +16,9 @@
 size_t my_strlen(const char * str) {
     uint64_t ans = zero(*(uint64_t *)str);
     size_t z = 0;
+
+    // Check for early null-termination
+    if (*str == '\0') return 0;
  
     /* ans = 0 means that the argument does not contain any zero byte */
     while (ans == 0) {
@@ -41,7 +44,7 @@ size_t my_strlen(const char * str) {
  
 int main(int argc, char ** argv) {
 
-    
+
     if (argc > 1) {
         printf("%lu\n", strlen(argv[1]));
     } else {
@@ -54,4 +57,31 @@ int main(int argc, char ** argv) {
 
     // Create a buffer (not null-terminated)
     //char buffer[] = {'H', 'e', 'l', 'l', 'o', ' ', 'w', 'o', 'r', 'l', 'd','\0'}; // no '\0' at the end
+
+
+    /*
+    // Allocate only 16 bytes, but we'll read more than that
+    char *buf = malloc(16);
+    if (!buf) {
+        perror("malloc failed");
+        return 1;
+    }
+
+    // Fill with non-null characters, no null terminator
+    memcpy(buf, "ABCDEFGHIJKLMNO", 15); // 15 non-null characters
+    buf[15] = '\0'; // Only 1 null byte at the very end
+
+    // Create a pointer near the end of the buffer (this is dangerous!)
+    char *near_end = buf + 14; // Only 7 bytes left until null terminator
+
+    printf("Calling unsafe strlen on near_end...\n");
+    size_t len = my_strlen(near_end); // May cause segfault or undefined behavior
+
+    printf("Length: %zu\n", len);
+    free(buf);
+*/
+
+    return 0;
+
+
 }
