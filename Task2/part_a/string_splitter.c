@@ -73,19 +73,28 @@ int main(int argc, char ** argv) {
  
     // Copy the matrix and delete the original
  
-    copy = matrixdup(parts);
-    matrixfree(parts);
+    if(*parts != NULL)
+    {
+        copy = matrixdup(parts);
+        matrixfree(parts);
+
+        // Print the matrix
  
-    // Print the matrix
+        for (i = 0; copy[i]; i++) {
+            printf("%s\n", copy[i]);
+        }
  
-    for (i = 0; copy[i]; i++) {
-        printf("%s\n", copy[i]);
+        // Delete the copy and exit
+    
+        matrixfree(copy);
+        return EXIT_SUCCESS;
+
     }
- 
-    // Delete the copy and exit
- 
-    matrixfree(copy);
-    return EXIT_SUCCESS;
+    else
+    {
+        fprintf(stderr, "ERROR: No string given. Only space is not allowed \n");
+        return EXIT_FAILURE;
+    }
 }
  
 // -----------------------------------------------------------------------------

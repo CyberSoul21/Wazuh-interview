@@ -10,7 +10,7 @@
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/string_splitter",
-            "args": ["This is a test"],
+            "args": ["  "],
             "stopAtEntry": false,
             "cwd": "${fileDirname}",
             "environment": [],
