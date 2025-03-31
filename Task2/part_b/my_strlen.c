@@ -20,8 +20,6 @@ size_t my_strlen(const char * str) {
         if (*str == '\0') return str - str;  // Stop if a null byte is found
         str++;
     }
-
-
     uint64_t ans = zero(*(uint64_t *)str);
     size_t z = 0;
 
