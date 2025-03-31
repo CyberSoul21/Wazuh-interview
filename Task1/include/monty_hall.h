@@ -17,7 +17,7 @@ class monty_hall
 {
     private:
 
-        std::vector<string> doors;
+        std::vector<string> doors = {"", "", ""};;
         std::vector<int> listDoors;
         int playerSelection;
         int doorOpened;
@@ -42,12 +42,7 @@ class monty_hall
         };
 
         //Reset
-        inline void reset()
-        {
-            std::vector<string> doors = {"Car","Goat","Goat"};
-            int playerSelection = 0;
-            int doorOpened = 0;
-        }
+        void reset();
 
         void shuffleDoors();
 

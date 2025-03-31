@@ -22,7 +22,7 @@ void monty_hall::shuffleDoors()
 
 void monty_hall::hostOpenDoor()
 {
-    std::lock_guard<std::mutex> lock(listDoorsMutex); // Lock the mutex
+    //std::lock_guard<std::mutex> lock(listDoorsMutex); // Lock the mutex
     
     for(int i=0; i<doors.size(); i++)
     {
@@ -37,7 +37,7 @@ void monty_hall::hostOpenDoor()
     }
     else
     {
-        doorOpened = listDoors[selectRandomNumber()];    
+        doorOpened = selectRandomNumber();    
     }
 }
 
@@ -111,8 +111,8 @@ int monty_hall::selectRandomNumber() {
     std::mt19937 gen(rd());  // Mersenne Twister random number generator
     std::uniform_int_distribution<> dist(0, 1);  // Uniform distribution between 0 and 1
     
-    //return dist(gen) == 0 ? listDoors[0] : listDoors[1];
-    return dist(gen);
+    return dist(gen) == 0 ? listDoors[0] : listDoors[1];
+    //return dist(gen);
 }
 
 
@@ -131,6 +131,7 @@ void monty_hall::switchStrategySimulation_chunk(int num_simulations, std::atomic
         {
             local_wins++;
         }
+        reset();
     }
     wins += local_wins;  // Atomically update the shared counter
 }
@@ -147,6 +148,16 @@ void monty_hall::stayStrategySimulation_chunk(int num_simulations, std::atomic<i
         {
             local_wins++;
         }
+        reset();
     }
     wins += local_wins;  // Atomically update the shared counter
+}
+
+void monty_hall::reset()
+{
+    listDoors.clear();
+    // Initialize member variables with default values
+    //doors = {"", "", ""};  // Initialize the doors
+    //playerSelection = 0;              // Set the initial player selection to 0
+    //doorOpened = 0;                   // Set the initial door opened to 0
 }

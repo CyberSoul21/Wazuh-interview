@@ -165,7 +165,7 @@ int main(int argc, char* argv[])
             // Output the result
             std::cout << "Games won with stay strategy: " << wins.load() << std::endl;
             wins.store(0);
-
+            threads.clear();
             // Create threads to run the simulation in parallel
             for (int i = 0; i < num_threads; i++)
             {
